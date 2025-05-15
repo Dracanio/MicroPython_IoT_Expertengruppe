@@ -1,5 +1,6 @@
 import socket
 import machine
+import time
 
 def start_ota_server(port=8080):
     #erstelle neuen socket und bindet deisen an die adresse (espIP + port)
@@ -44,7 +45,7 @@ def start_ota_server(port=8080):
         print("main.py wurde erfolgreich gespeichert.")
 
         # Antwort an Client
-        cl.send(b"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nUpload OK")
-        machine.reset()
-        cl.send(b"rebooting...\r\n")
+        cl.send(b"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nUpload OK, rebooting now")
         cl.close()
+        time.sleep(0.5)
+        machine.reset()
